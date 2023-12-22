@@ -1,12 +1,9 @@
 #!/bin/bash
 
-gcc $1 -o ./bin/$2
+gcc ./src/$1 -o ./bin/$2
 
 
-if [ $# -eq 2 ]
+if [ $# -eq 3 ]
 then
-    if [ $3 == "run" ]
-    then
-        echo $(./bin/$2)
-    fi
+    echo $(./bin/$2 $3)
 fi
