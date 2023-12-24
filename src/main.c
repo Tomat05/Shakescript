@@ -1,6 +1,11 @@
+#include <stdlib.h>
 #include <stdio.h>
 
-int main(int argc, char* argv[]) {
-    printf("In the future %s will be interpreted!\n", argv[1]);
+#include "input.h"
+
+int main(int argc, char *argv[])
+{
+    char *contents = readFile(argv[1]);
+    printf("%s", contents);
     return 0;
 }
