@@ -36,6 +36,12 @@ char *readFile(char *filename)
         contents[i] = fgetc(fptr);
     }
 
+    if (contents[sizeof(contents) - 1] != '\0')
+    {
+        realloc(contents, sizeof(contents) + 1);
+        contents[sizeof(contents) - 1] = '\0';
+    }
+
     fclose(fptr);
 
     return contents;
