@@ -53,3 +53,5 @@ dkms.conf
 
 # The bin directory
 bin/
+
+.vscode/
