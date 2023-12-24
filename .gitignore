@@ -54,5 +54,6 @@ dkms.conf
 # Build directories
 bin/
 obj/
+Shakescript\ Files/
 
 .vscode/
