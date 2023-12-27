@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include "input.h"
+
 void _outOfMemCheck(char *buf)
 {
     if (buf == NULL)
@@ -11,11 +13,9 @@ void _outOfMemCheck(char *buf)
     }
 }
 
-char *readFile(char *filename)
+void readFile(char *filename, CharArr *out)
 {
-    FILE *fptr;
-
-    fptr = fopen(filename, "rb");
+    FILE *fptr = fopen(filename, "rb");
 
     if (fptr == NULL)
     {
@@ -24,25 +24,23 @@ char *readFile(char *filename)
     }
 
     fseek(fptr, 0L, SEEK_END);
-    long length = ftell(fptr);
+    out->length = ftell(fptr);
     rewind(fptr);
 
-    char *contents = malloc(length * sizeof(char));
+    out->array = malloc(out->length * sizeof(char));
 
-    _outOfMemCheck(contents);
+    _outOfMemCheck(out->array);
 
-    for (int i = 0; i < length; i++)
+    for (int i = 0; i < out->length; i++)
     {
-        contents[i] = fgetc(fptr);
+        out->array[i] = fgetc(fptr);
     }
 
-    if (contents[sizeof(contents) - 1] != '\0')
+    if (out->array[out->length - 1] != '\0')
     {
-        realloc(contents, sizeof(contents) + 1);
-        contents[sizeof(contents) - 1] = '\0';
+        out->array = realloc(out->array, (out->length + 1) * sizeof(char));
+        out->array[out->length] = '\0';
     }
 
     fclose(fptr);
-
-    return contents;
 }
